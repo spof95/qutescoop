@@ -36,9 +36,9 @@ jobs:
       - run: qmake -config release QuteScoop.pro
       - run: make 
       - run: make install
-      - run: windeployqt DIST-win32
+      - run: windeployqt DIST-win64
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
           name: QuteScoop-Win-${{ steps.tag.outputs.SOURCE_NAME }}-${{ github.sha }}.zip
-          path: ./DIST-win32
+          path: ./DIST-win64
