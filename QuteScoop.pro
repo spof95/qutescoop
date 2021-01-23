@@ -11,6 +11,8 @@ DEFINES += VERSION_NUMBER=\"$$VER_STR\" # complex escaping to preserve
 
 # fixes version incompatibilities
 QMAKE_CXXFLAGS += "-fno-sized-deallocation"
+QMAKE_LFLAGS += "-static-libstdc++ -static-libgcc"
+
 
 TEMPLATE = app
 CONFIG *= qt
