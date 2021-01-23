@@ -34,7 +34,7 @@ jobs:
       - run: env
         shell: bash
       - run: qmake PLATFORM="win64" -config release QuteScoop.pro
-      - run: make -j$(nproc)
+      - run: make -j 4
       - run: make install
       - run: windeployqt DIST-win64
       - name: Upload
