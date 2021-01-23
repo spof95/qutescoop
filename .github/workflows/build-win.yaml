@@ -33,7 +33,7 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - run: env
         shell: bash
-      - run: qmake -config release QuteScoop.pro
+      - run: qmake PLATFORM="win64" -config release QuteScoop.pro
       - run: make 
       - run: make install
       - run: windeployqt DIST-win64
