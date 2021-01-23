@@ -21,24 +21,30 @@ CONFIG *= warn_on
 TARGET = QuteScoop
 
 win32: {
-    contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "win64"
-    else:PLATFORM = "win32"
+    !defined(PLATFORM, var){
+        contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "win64"
+        else:PLATFORM = "win32"
+    }
 }
 macx: {
     # QMAKE_TARGET.arch is only available on Windows?!
-    QMAKE_TARGET.arch = $$QMAKE_HOST.arch
-    contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "macx64"
-    else:PLATFORM = "macx32"
+    !defined(PLATFORM, var){
+        QMAKE_TARGET.arch = $$QMAKE_HOST.arch
+        contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "macx64"
+        else:PLATFORM = "macx32"
+    }
 }
 !macx:unix: {
-    # QMAKE_TARGET.arch is only available on Windows?!
-    linux-g++:QMAKE_TARGET.arch = $$QMAKE_HOST.arch
-    # allow for 32bit cross-compiling on 64bit with g++ (_HOST and _TARGET different)
-    linux-g++-32:QMAKE_TARGET.arch = x86
-    linux-g++-64:QMAKE_TARGET.arch = x86_64
+    !defined(PLATFORM, var){
+        # QMAKE_TARGET.arch is only available on Windows?!
+        linux-g++:QMAKE_TARGET.arch = $$QMAKE_HOST.arch
+        # allow for 32bit cross-compiling on 64bit with g++ (_HOST and _TARGET different)
+        linux-g++-32:QMAKE_TARGET.arch = x86
+        linux-g++-64:QMAKE_TARGET.arch = x86_64
 
-    contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "unix64"
-    else:PLATFORM = "unix32"
+        contains(QMAKE_TARGET.arch, x86_64):PLATFORM = "unix64"
+        else:PLATFORM = "unix32"
+    }
 }
 
 # Qt libraries
